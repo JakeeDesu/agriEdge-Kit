@@ -1,6 +1,5 @@
 import { app } from "./firebase"
 import { getFirestore,  collection, getDocs, addDoc } from "firebase/firestore"
-import { sync } from "framer-motion";
 
 
 

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { G_Context } from "../contexts/globalContext";
 
+import { setData } from "../firebaseServices/fireStoreUtils"
 import { setAuthCookie } from '../../utils/auth';
 
 
@@ -42,7 +43,7 @@ export const AgriEdgeForm = () => {
 
     const onSubmit = (e:any) => {
         e.preventDefault()
-
+        setData('agriEdge-kit', formData)
         const token = 'agri-kit';
         setAuthCookie(token);
         goToProduct()
