@@ -16,10 +16,11 @@ const IndexedPage = React.forwardRef((props, ref) => {
   );
 });
 
-const PdfViewer = ({ file }) => {
+const PdfViewer = ({ img_prefix, img_nb, imgExt }) => {
 
   return (
-    <div  className='h-fit w-full md:w-8/12 bg-white'>
+    <div  className='h-fit max-h-screen w-full md:w-8/12 bg-white shadow-xl'>
+      <div>{console.log("reader product-> ", img_prefix, img_nb, imgExt)}</div>
       {/* <Document
         file={file}
         onLoadSuccess={onDocumentLoadSuccess}
@@ -40,12 +41,14 @@ const PdfViewer = ({ file }) => {
             mobileScrollSupport={true}
           >
             {
-            ["01","02","03","04","05","06","07","08","09","10","11","12","13","14","15"].map(elem => (
-                    <div key={elem} className="w-full h-full  overflow-hidden bg-white">
-                        <img className="w-full h-full object-contain object-center" src={`/agriEdge/AgriEdge_brochure_V6-${elem}.png`} alt=""/>
-                    </div>
-            ))
-          }
+              Array.from({ length : img_nb }, (_, index) => (
+                  <div key={index} className="w-full h-full  overflow-hidden bg-white">
+                    {console.log("inDex ----------- ", `${img_prefix}-${index}.${imgExt}`)}
+                      <img className="w-full h-full object-contain object-center" src={`${img_prefix}-${index}.${imgExt}`} alt=""/>
+                  </div>
+              ))
+            }
+
 
 
                     

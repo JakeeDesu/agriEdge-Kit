@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { G_Context } from "../contexts/globalContext";
 
+import { setAuthCookie } from '../../utils/auth';
+
 
 
 export const AgriEdgeForm = () => {
@@ -40,6 +42,9 @@ export const AgriEdgeForm = () => {
 
     const onSubmit = (e:any) => {
         e.preventDefault()
+
+        const token = 'agri-kit';
+        setAuthCookie(token);
         goToProduct()
     }
 

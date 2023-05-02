@@ -11,8 +11,11 @@ import { PDFReader } from '@/components/pdfReader/PDFReader'
 import { G_Context, G_Context_Wrraper } from '@/components/contexts/globalContext'
 import { AnimatePresence, delay, motion } from 'framer-motion'
 
+import { getAuthCookie } from '../utils/auth';
 
 export default function Home() {
+ 
+
   return (
       <Layout>
         <G_Context_Wrraper>
@@ -43,6 +46,8 @@ const frameVariants = {
 
 const AgriEdge = () => {
   const context = useContext(G_Context)
+  const isVisitor = Boolean(getAuthCookie());
+
 
   useEffect(() => {
 
@@ -53,6 +58,15 @@ const AgriEdge = () => {
       easing: 'ease-out-cubic',
     });
   });
+
+
+  useEffect(() => {
+    if (isVisitor && context.onDisplay == 0)
+    {
+      console.log("sdfsdf T -> ",isVisitor)
+      context.changeDisplay(1)
+    }
+  })
 
   return (
     <div className='w-full h-full'>

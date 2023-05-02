@@ -10,10 +10,16 @@ type FormData_Type = {
 }
 
 type productsDisplayData_Type = {
-    title? : string    
+    title? : string
+    setImagePref : React.Dispatch<React.SetStateAction<string>>
+    setImagNb : React.Dispatch<React.SetStateAction<number>>
+    setImgExt : React.Dispatch<React.SetStateAction<string>>
 }
 type PdfReaderData_Type = {
     pdf_file?: string
+    img_prefix : string
+    img_nb : number
+    imgExt : string
 }
 
 
@@ -36,10 +42,16 @@ const default_G_Context = {
         logo : "/form/images/agriedge-logo.png",
     },
     productsDisplayData: {
-        title: ""
+        title: "",
+        setImagePref : (x:any) => x,
+        setImagNb : (x:any) => x,
+        setImgExt : (x:any) => x
     },
     pdfReaderData: {
-        pdf_file : ""
+        pdf_file : "",
+        img_prefix : "",
+        img_nb : 0,
+        imgExt : ""
     },
 }
 
@@ -52,6 +64,12 @@ export const G_Context = createContext<G_Context_Type>(default_G_Context)
 
 export const G_Context_Wrraper = ({children}: any) => {
     const [currentDisplay, setCurrentDisplay] = useState<number>(default_G_Context.onDisplay)
+
+    const [imagePref, setImagePref] = useState("")
+    const [imagNb, setImagNb] = useState(0)
+    const [imgExt, setImgExt] = useState("")
+
+    
     
     return (
         <G_Context.Provider
@@ -65,10 +83,16 @@ export const G_Context_Wrraper = ({children}: any) => {
                     logo : default_G_Context.formData.logo
                 },
                 productsDisplayData: {
-                    title: ""
+                    title: "",
+                    setImagePref : setImagePref,
+                    setImgExt : setImgExt,
+                    setImagNb : setImagNb,
                 },
                 pdfReaderData: {
-                    pdf_file : ""
+                    pdf_file : "",
+                    img_prefix : imagePref,
+                    img_nb : imagNb,
+                    imgExt : imgExt 
                 },
             }}
         >

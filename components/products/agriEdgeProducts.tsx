@@ -5,28 +5,43 @@ type ProductType = {
     title: string
     image?: string
     pdf: string
+    pfd_img_pref : string
+    pdf_img_ext : string
+    pdf_img_nb : number
 }
 
 const products: ProductType[] = [
     {
         title: "fertyEdge",
         image: "/products/images/Ferti.svg",
-        pdf: "/pdf-reader/FertiEdge.pdf"
+        pdf: "/pdf-reader/FertiEdge.pdf",
+        pfd_img_pref : "pdf-reader/ferty/ferty",
+        pdf_img_ext : "png",
+        pdf_img_nb : 1
     },
     {
         title: "aquaEdge",
         image: "/products/images/Aqua.png",
-        pdf: ""
+        pdf: "",
+        pfd_img_pref : "/pdf-reader/aqua/aqua",
+        pdf_img_ext : "png",
+        pdf_img_nb : 2
     },
     {
         title: "et0",
         image: "/products/images/ET0.png",
-        pdf: ""
+        pdf: "",
+        pfd_img_pref : "/pdf-reader/et0/et0",
+        pdf_img_ext : "png",
+        pdf_img_nb : 1
     },
     {
         title: "phyto",
         image: "/products/images/phyto.svg",
-        pdf: ""
+        pdf: "",
+        pfd_img_pref : "/pdf-reader/phyto/phyto",
+        pdf_img_ext : "png",
+        pdf_img_nb : 0
     }
 ]
 
@@ -48,7 +63,7 @@ export const AgriEdgeProducts = () => {
             <div className={` grid grid-cols-4 md:grid-cols-2 gap-8 py-8 w-full h-fit  rounded-sm ring-1 d:ring-0 ring-white/50  backdrop-blur-sm d:backdrop-blur-none   transition-all duration-1000 ease-in-out overflow-y-scroll `}>
                 {products.map((product, index) => (
                     <div key={index} className={`h-full w-full  flex justify-center items-center bg-blak/10 ${item_posi[index]} md:col-auto md:row-auto`}>
-                        <ProductCard title={product.title} image={product.image} />
+                        <ProductCard product={product} />
                     </div>
                 ))}
             </div>
@@ -58,18 +73,24 @@ export const AgriEdgeProducts = () => {
 }
 
 type productPropsType = {
-    title: string
-    image?: string
+    product : ProductType
 }
 
-const ProductCard = ({ title, image }: productPropsType) => {
+const ProductCard = ({ product }: productPropsType) => {
     const context = useContext(G_Context)
+    const setImagePref = context.productsDisplayData.setImagePref
+    const setImgExt = context.productsDisplayData.setImgExt
+    const setImagNb = context.productsDisplayData.setImagNb
 
     const goToPdf = () => {
         context.changeDisplay(2)
     }
 
     const clickHandler = (e: any) => {
+        console.log("product -> : ", product)
+        setImagePref(product.pfd_img_pref)
+        setImgExt(product.pdf_img_ext)
+        setImagNb(product.pdf_img_nb)
         goToPdf()
     }
 
@@ -82,7 +103,7 @@ const ProductCard = ({ title, image }: productPropsType) => {
                 onClick={clickHandler}
             >
                 <div className="h-full w-full p-4 overflow-hidden ">
-                    <img className="w-full h-full object-contain object-center" src={image} alt="" />
+                    <img className="w-full h-full object-contain object-center" src={product.image} alt="" />
                 </div>
             </div>
         </div>
